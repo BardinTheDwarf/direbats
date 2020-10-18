@@ -53,7 +53,8 @@ public class DBEntities {
             .entityFactory(DirebatFangArrowEntity::new)
             .dimensions(EntityDimensions.fixed(0.5F, 0.5F))
             .trackRangeChunks(4)
-            .trackedUpdateRate(20),
+            .trackedUpdateRate(4)
+            .forceTrackedVelocityUpdates(true),
         null
     );
 

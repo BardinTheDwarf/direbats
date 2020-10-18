@@ -4,7 +4,11 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.minecraft.util.Identifier;
+import net.teamhollow.direbats.client.network.DBEntitySpawnPacket;
 import net.teamhollow.direbats.entity.direbat.DirebatEntityRenderer;
+import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntity;
 import net.teamhollow.direbats.entity.direbat_fang_arrow.DirebatFangArrowEntityRenderer;
 import net.teamhollow.direbats.init.DBEntities;
 
@@ -17,7 +21,6 @@ public class DirebatsClient implements ClientModInitializer {
     @Environment(EnvType.CLIENT)
     public void registerRenderers() {
         EntityRendererRegistry INSTANCE = EntityRendererRegistry.INSTANCE;
-
         INSTANCE.register(
             DBEntities.DIREBAT,
             (entityRenderDispatcher, context) -> new DirebatEntityRenderer(entityRenderDispatcher)
@@ -26,5 +29,7 @@ public class DirebatsClient implements ClientModInitializer {
             DBEntities.DIREBAT_FANG_ARROW,
             (entityRenderDispatcher, context) -> new DirebatFangArrowEntityRenderer(entityRenderDispatcher)
         );
+
+        ClientSidePacketRegistry.INSTANCE.register(new Identifier(Direbats.MOD_ID, DirebatFangArrowEntity.id + "_spawn_packet"), new DBEntitySpawnPacket());
     }
 }
